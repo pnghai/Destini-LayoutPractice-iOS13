@@ -13,19 +13,23 @@ class ViewController: UIViewController {
     @IBOutlet weak var storyLbl: UILabel!
     @IBOutlet weak var choice1Btn: UIButton!
     @IBOutlet weak var choice2Btn: UIButton!
-    let story0 = "You see a fork in the road"
-    let choice1 = "Take a left."
-    let choice2 = "Take a right."
+    var positionNumber = 0
+    var storyBrain = StoryBrain()
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        storyLbl.text = story0
-        choice1Btn.setTitle(choice1, for: .normal)
-        choice2Btn.setTitle(choice2, for: .normal)
+        updateUI()
     }
 
     @IBAction func choicePressed(_ sender: UIButton) {
+        storyBrain.nextStory(sender.currentTitle!)
+        updateUI()
     }
     
+    @objc func updateUI(){
+        storyLbl.text = storyBrain.getStoryTitle()
+        choice1Btn.setTitle(storyBrain.getStoryChoice(1), for: .normal)
+        choice2Btn.setTitle(storyBrain.getStoryChoice(2), for: .normal)
+    }
 }
 
